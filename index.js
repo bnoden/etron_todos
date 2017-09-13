@@ -16,8 +16,9 @@ function createAddWindow() {
   addWindow = new BrowserWindow({
     width: 300,
     height: 200,
-    title: 'Add New Todo'
+    title: 'New Todo'
   });
+  addWindow.loadURL(`file://${__dirname}/add.html`);
 }
 
 const menuTemplate = [
@@ -26,6 +27,7 @@ const menuTemplate = [
     submenu: [
       {
         label: 'New Todo',
+        accelerator: process.platform === 'darwin' ? 'Command+N' : 'Ctrl+N',
         click() { createAddWindow(); }
       },
       {
