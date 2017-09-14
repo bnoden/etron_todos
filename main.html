@@ -14,16 +14,30 @@
     <h3>TODO</h3>
     <ol style="background-color: #F5F8FA; color: #056130; border-radius: 4px;"></ol>
 
-    <script>
-    const electron = require('electron');
+<script>
+const electron = require('electron');
 const { ipcRenderer } = electron;
+const list = document.querySelector('ol');
 
 ipcRenderer.on('todo:add', (event, todo) => {
   const li = document.createElement('li');
   const text = document.createTextNode(todo);
 
   li.appendChild(text);
+  list.appendChild(li);
   document.querySelector('ol').appendChild(li);
+});
+
+ipcRenderer.on('todo:clearall', event => {
+  list.innerHTML = '';
+});
+
+ipcRenderer.on('todo:clearfirst', event => {
+  list.removeChild(list.firstChild);
+});
+
+ipcRenderer.on('todo:clearlast', event => {
+  list.removeChild(list.lastChild);
 });
 </script>
   </div>

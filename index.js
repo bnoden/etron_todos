@@ -5,7 +5,10 @@ const { app, BrowserWindow, Menu, ipcMain } = electron;
 let mainWindow, addWindow;
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    width: 360,
+    height: 420
+  });
   mainWindow.loadURL(`file://${__dirname}/main.html`);
   mainWindow.on('closed', () => app.quit());
 
@@ -16,7 +19,7 @@ app.on('ready', () => {
 function createAddWindow() {
   addWindow = new BrowserWindow({
     width: 300,
-    height: 200,
+    height: 130,
     title: 'New Todo'
   });
   addWindow.loadURL(`file://${__dirname}/add.html`);
@@ -37,6 +40,26 @@ const menuTemplate = [
         accelerator: process.platform === 'darwin' ? 'Command+N' : 'Ctrl+N',
         click() {
           createAddWindow();
+        }
+      },
+      {
+        label: 'Clear First',
+        accelerator: process.platform === 'darwin' ? 'Command+1' : 'Ctrl+1',
+        click() {
+          mainWindow.webContents.send('todo:clearfirst');
+        }
+      },
+      {
+        label: 'Clear Last',
+        accelerator: process.platform === 'darwin' ? 'Command+Z' : 'Ctrl+Z',
+        click() {
+          mainWindow.webContents.send('todo:clearlast');
+        }
+      },
+      {
+        label: 'Clear All',
+        click() {
+          mainWindow.webContents.send('todo:clearall');
         }
       },
       {
