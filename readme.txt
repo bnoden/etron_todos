@@ -1,2 +1,2 @@
-npm install
-npm run e.
+'npm install'
+'npm run e.'
