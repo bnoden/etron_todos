@@ -25,7 +25,6 @@ ipcRenderer.on('todo:add', (event, todo) => {
 
   li.appendChild(text);
   list.appendChild(li);
-  document.querySelector('ol').appendChild(li);
 });
 
 ipcRenderer.on('todo:clearall', event => {
