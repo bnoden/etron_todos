@@ -1,7 +1,30 @@
-<head></head>
+<head>
+<style>
+  ol {
+    width: 180px;
+    overflow: hidden;
+    resize: horizontal;
+  }
+</style>
+</head>
 <body>
-  <div id="container" style="font-family: Verdana, Arial; color: #F5F8FA; font-weight: 500;
-  background-color: #3FD419; max-width: 100%; height: auto; padding: 6px; border-radius: 3px;">
-    <h2>TODO</h2>
+  <div id="container" style="font-family: Verdana, Arial; color: #F5F8FA; font-weight: 400;
+  background-color: #056130; max-width: 100%; height: auto; padding: 6px; border-radius: 3px;">
+
+    <h3>TODO</h3>
+    <ol style="background-color: #F5F8FA; color: #056130; border-radius: 4px;"></ol>
+
+    <script>
+    const electron = require('electron');
+const { ipcRenderer } = electron;
+
+ipcRenderer.on('todo:add', (event, todo) => {
+  const li = document.createElement('li');
+  const text = document.createTextNode(todo);
+
+  li.appendChild(text);
+  document.querySelector('ol').appendChild(li);
+});
+</script>
   </div>
 </body>
